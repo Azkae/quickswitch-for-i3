@@ -58,7 +58,7 @@ def dmenu(options, dmenu):
 
 def get_windows():
     '''Get all windows.'''
-    windows = i3.filter(nodes=[])
+    windows = i3.filter(nodes=[], floating_nodes=[])
     return create_lookup_table(windows)
 
 
@@ -227,14 +227,14 @@ def main():
     mutgrp.add_argument('-p', '--previous', default=False, action='store_true',
                         help='go to the previous (numbered) workspace')
 
-    parser.add_argument('-d', '--dmenu', default='dmenu -b -i -l 20', help='dmenu command, executed within a shell')
+    parser.add_argument('-d', '--dmenu', default='dmenu -i -l 20', help='dmenu command, executed within a shell')
 
     args = parser.parse_args()
 
-    if not check_dmenu():
-        print("quickswitch requires dmenu.")
-        print("Please install it using your distribution's package manager.")
-        exit(1)
+    # if not check_dmenu():
+    #     print("quickswitch requires dmenu.")
+    #     print("Please install it using your distribution's package manager.")
+    #     exit(1)
 
     # jumping to the next empty workspaces doesn't require going through all
     # the stuff below, as we don't need to call dmenu etc, so we just call it
